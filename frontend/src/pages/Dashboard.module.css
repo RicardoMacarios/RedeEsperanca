@@ -1,0 +1,105 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.titulo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--texto);
+  margin: 0 0 4px;
+}
+
+.subtitulo {
+  font-size: 14px;
+  color: var(--texto-sec);
+}
+
+.headerAcoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btnNova {
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btnNova:hover {
+  background: var(--verde-escuro);
+}
+
+.logout {
+  background: transparent;
+  border: 1px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--texto-sec);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.logout:hover {
+  border-color: #DC2626;
+  color: #DC2626;
+}
+
+.metricasGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.metricaCard {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--sombra);
+}
+
+.metricaLabel {
+  font-size: 12px;
+  color: var(--texto-sec);
+  font-weight: 500;
+}
+
+.metricaValor {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}

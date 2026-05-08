@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import CadastroVoluntario from './pages/CadastroVoluntario';
 import CadastroOng from './pages/CadastroOng';
 import Dashboard from './pages/Dashboard';
+import CriarCampanha from './pages/CriarCampanha';
 
 export default function App() {
   return (
@@ -29,6 +30,14 @@ export default function App() {
             element={
               <RotaProtegida tipo="ong">
                 <Dashboard />
+              </RotaProtegida>
+            }
+          />
+          <Route
+            path="/criar-campanha"
+            element={
+              <RotaProtegida>
+                <CriarCampanha />
               </RotaProtegida>
             }
           />

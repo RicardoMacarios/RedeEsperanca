@@ -1,97 +1,101 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Sidebar from '../components/Sidebar';
+import CardCampanha from '../components/CardCampanha';
+import DetalheCampanha from '../components/DetalheCampanha';
+import { campanhas, categorias, metricas } from '../data/mock';
+import s from './Dashboard.module.css';
 
-const styles = {
-  container: {
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: "'DM Sans', sans-serif",
-    backgroundColor: '#f9fafb',
-  },
-  card: {
-    background: '#ffffff',
-    borderRadius: '12px',
-    boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-    padding: '48px 56px',
-    textAlign: 'center',
-    maxWidth: '480px',
-    width: '100%',
-  },
-  ponto: {
-    width: '48px',
-    height: '48px',
-    background: '#1D9E75',
-    borderRadius: '50%',
-    margin: '0 auto 24px',
-  },
-  titulo: {
-    fontFamily: "'DM Serif Display', serif",
-    fontSize: '28px',
-    color: '#1a1a1a',
-    marginBottom: '8px',
-  },
-  subtitulo: {
-    fontSize: '15px',
-    color: '#6b7280',
-    marginBottom: '32px',
-  },
-  badge: {
-    display: 'inline-block',
-    background: '#E1F5EE',
-    color: '#0F6E56',
-    borderRadius: '100px',
-    padding: '4px 14px',
-    fontSize: '13px',
-    fontWeight: '500',
-    marginBottom: '32px',
-  },
-  botao: {
-    background: 'transparent',
-    border: '1.5px solid #e5e7eb',
-    borderRadius: '8px',
-    padding: '11px 24px',
-    fontSize: '15px',
-    fontWeight: '500',
-    color: '#6b7280',
-    cursor: 'pointer',
-    transition: 'border-color 0.15s, color 0.15s',
-  },
-};
+const fmt = (v) =>
+  v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+
+const fmtNum = (v) => v.toLocaleString('pt-BR');
 
 export default function Dashboard() {
   const { usuario, logout } = useAuth();
   const navigate = useNavigate();
+  const [categoriaAtiva, setCategoriaAtiva] = useState('todas');
+  const [campanhaAberta, setCampanhaAberta] = useState(null);
+
+  if (!usuario) return null;
 
   function handleLogout() {
     logout();
     navigate('/login');
   }
 
-  if (!usuario) return null;
+  function handleCategoria(id) {
+    setCategoriaAtiva(id);
+    setCampanhaAberta(null);
+  }
+
+  const filtradas =
+    categoriaAtiva === 'todas'
+      ? campanhas
+      : campanhas.filter((c) => c.causa === categoriaAtiva);
+
+  const catInfo = categorias.find((c) => c.id === categoriaAtiva);
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <div style={styles.ponto} />
-        <span style={styles.badge}>
-          {usuario.tipo === 'ong' ? '🏢 ONG' : '🙋 Voluntário'}
-        </span>
-        <h1 style={styles.titulo}>Olá, {usuario.nome}!</h1>
-        <p style={styles.subtitulo}>
-          Bem-vindo à RedeEsperança. Em breve haverá muito mais aqui.
-        </p>
-        <button
-          style={styles.botao}
-          onMouseEnter={(e) => { e.target.style.borderColor = '#dc2626'; e.target.style.color = '#dc2626'; }}
-          onMouseLeave={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.color = '#6b7280'; }}
-          onClick={handleLogout}
-        >
-          Sair da conta
-        </button>
-      </div>
+    <div className={s.layout}>
+      <Sidebar categoriaAtiva={categoriaAtiva} onCategoria={handleCategoria} />
+
+      <main className={s.main}>
+        {campanhaAberta ? (
+          <DetalheCampanha
+            campanha={campanhaAberta}
+            onVoltar={() => setCampanhaAberta(null)}
+          />
+        ) : (
+          <>
+            <div className={s.header}>
+              <div>
+                <h1 className={s.titulo}>{catInfo?.label ?? 'Todas as causas'}</h1>
+                <p className={s.subtitulo}>
+                  {filtradas.length} campanha{filtradas.length !== 1 ? 's' : ''} encontrada{filtradas.length !== 1 ? 's' : ''}
+                </p>
+              </div>
+              <div className={s.headerAcoes}>
+                <button className={s.btnNova} onClick={() => navigate('/criar-campanha')}>
+                  + Nova campanha
+                </button>
+                <button className={s.logout} onClick={handleLogout}>Sair</button>
+              </div>
+            </div>
+
+            <div className={s.metricasGrid}>
+              <div className={s.metricaCard}>
+                <span className={s.metricaLabel}>Total arrecadado</span>
+                <span className={s.metricaValor}>{fmt(metricas.totalArrecadado)}</span>
+              </div>
+              <div className={s.metricaCard}>
+                <span className={s.metricaLabel}>Campanhas ativas</span>
+                <span className={s.metricaValor}>{metricas.campanhasAtivas}</span>
+              </div>
+              <div className={s.metricaCard}>
+                <span className={s.metricaLabel}>Voluntários</span>
+                <span className={s.metricaValor}>{fmtNum(metricas.voluntarios)}</span>
+              </div>
+              <div className={s.metricaCard}>
+                <span className={s.metricaLabel}>ONGs parceiras</span>
+                <span className={s.metricaValor}>{metricas.ongs}</span>
+              </div>
+            </div>
+
+            <div className={s.grid}>
+              {filtradas.map((c, i) => (
+                <CardCampanha
+                  key={c.id}
+                  campanha={c}
+                  index={i}
+                  onClick={() => setCampanhaAberta(c)}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </main>
     </div>
   );
 }
