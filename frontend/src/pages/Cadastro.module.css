@@ -1,0 +1,272 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Lado esquerdo ── */
+.hero {
+  flex: 1;
+  background: #0F6E56;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.logoPonto {
+  width: 36px;
+  height: 36px;
+  background: #1D9E75;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.logoTexto {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.heroTitulo {
+  font-size: 36px;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 32px;
+  max-width: 340px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNumero {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4px;
+}
+
+.causas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.causa {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.circulo1,
+.circulo2 {
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.circulo1 {
+  width: 400px;
+  height: 400px;
+  bottom: -120px;
+  right: -100px;
+}
+
+.circulo2 {
+  width: 220px;
+  height: 220px;
+  top: -60px;
+  right: 60px;
+}
+
+/* ── Lado direito (scroll) ── */
+.direito {
+  width: 520px;
+  background: var(--fundo);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 40px;
+  overflow-y: auto;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--branco);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 40px 36px;
+}
+
+.badgeTipo {
+  display: inline-block;
+  background: var(--verde-claro);
+  color: var(--verde-escuro);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.cardTitulo {
+  font-size: 26px;
+  color: var(--texto);
+  margin-bottom: 28px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.grupo {
+  margin-bottom: 18px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--texto-sec);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  border: 1.5px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-size: 15px;
+  color: var(--texto);
+  background: var(--branco);
+  transition: border-color 0.15s;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--verde);
+}
+
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.botaoPrimario {
+  width: 100%;
+  background: var(--verde);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 13px;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 8px;
+  transition: background 0.15s;
+}
+
+.botaoPrimario:hover:not(:disabled) {
+  background: var(--verde-escuro);
+}
+
+.botaoPrimario:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.rodape {
+  text-align: center;
+  font-size: 14px;
+  color: var(--texto-sec);
+  margin-top: 20px;
+}
+
+.rodape a {
+  color: var(--verde);
+  font-weight: 500;
+}
+
+.rodape a:hover {
+  text-decoration: underline;
+}
+
+.erro {
+  font-size: 13px;
+  color: var(--erro);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    display: none;
+  }
+
+  .direito {
+    width: 100%;
+    padding: 32px 20px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

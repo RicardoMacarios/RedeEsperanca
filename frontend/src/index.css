@@ -1,0 +1,52 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --verde: #1D9E75;
+  --verde-escuro: #0F6E56;
+  --verde-claro: #E1F5EE;
+  --texto: #1a1a1a;
+  --texto-sec: #6b7280;
+  --borda: #e5e7eb;
+  --fundo: #f9fafb;
+  --branco: #ffffff;
+  --erro: #dc2626;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --sombra: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'DM Serif Display', serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+}
