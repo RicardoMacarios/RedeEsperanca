@@ -1,12 +1,19 @@
 .container {
-  max-width: 720px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+}
+
+/* ── Top bar ── */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .voltar {
-  align-self: flex-start;
   background: transparent;
   border: none;
   font-size: 14px;
@@ -15,16 +22,71 @@
   cursor: pointer;
   padding: 0;
   transition: color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.voltar:hover {
-  color: var(--texto);
+.voltar:hover { color: var(--texto); }
+
+.topAcoes {
+  display: flex;
+  gap: 8px;
 }
 
+.btnCompartilhar {
+  background: var(--branco);
+  border: 1.5px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--texto-sec);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btnCompartilhar:hover {
+  border-color: var(--verde);
+  color: var(--verde);
+}
+
+.btnMais {
+  background: var(--branco);
+  border: 1.5px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 7px 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--texto-sec);
+  cursor: pointer;
+  line-height: 1;
+  letter-spacing: 1px;
+  transition: border-color 0.15s;
+}
+
+.btnMais:hover { border-color: var(--texto-ter); }
+
+/* ── Hero ── */
 .hero {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius);
+  padding: 24px;
   display: flex;
   align-items: flex-start;
-  gap: 20px;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroBanda {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .heroIcone {
@@ -34,11 +96,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 30px;
   flex-shrink: 0;
+  margin-top: 4px;
 }
 
 .heroInfo {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -47,14 +111,15 @@
 .heroBadges {
   display: flex;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 .badgeUrgente {
   background: #FEE2E2;
   color: #DC2626;
   font-size: 11px;
-  font-weight: 600;
-  padding: 2px 8px;
+  font-weight: 700;
+  padding: 3px 10px;
   border-radius: 100px;
 }
 
@@ -62,28 +127,32 @@
   background: var(--verde-claro);
   color: var(--verde-escuro);
   font-size: 11px;
-  font-weight: 600;
-  padding: 2px 8px;
+  font-weight: 700;
+  padding: 3px 10px;
   border-radius: 100px;
 }
 
 .titulo {
   font-family: 'DM Serif Display', serif;
-  font-size: 26px;
+  font-size: 30px;
   color: var(--texto);
-  line-height: 1.25;
+  line-height: 1.15;
   margin: 0;
 }
 
 .ong {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--texto-sec);
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
+/* ── 4 métricas ── */
 .metricasGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 
@@ -91,28 +160,55 @@
   background: var(--branco);
   border: 1px solid var(--borda);
   border-radius: var(--radius);
-  padding: 16px 20px;
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .metricaLabel {
-  font-size: 12px;
-  color: var(--texto-sec);
-  font-weight: 500;
+  font-size: 11px;
+  color: var(--texto-ter);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
 }
 
 .metricaValor {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
+  color: var(--texto);
+  line-height: 1;
+}
+
+/* ── Progresso ── */
+.progressoSection {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progressoHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.progressoLabel {
+  font-size: 15px;
+  font-weight: 600;
   color: var(--texto);
 }
 
-.progressoSection {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.progressoPct {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--verde);
 }
 
 .barraFundo {
@@ -125,72 +221,311 @@
 .barraFill {
   height: 100%;
   border-radius: 99px;
-  transition: width 0.6s ease;
+  transition: width 0.8s ease;
+  min-width: 6px;
 }
 
-.pct {
+.progressoTexto {
   font-size: 13px;
   color: var(--texto-sec);
+  margin: 0;
 }
 
-.descricaoSection {
+/* ── Duas colunas ── */
+.duasColunas {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.sobre {
   background: var(--branco);
   border: 1px solid var(--borda);
   border-radius: var(--radius);
-  padding: 20px 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.detalhes {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.secaoTitulo {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto-ter);
+  margin: 0;
 }
 
 .descricao {
   font-size: 15px;
   color: var(--texto-sec);
-  line-height: 1.7;
+  line-height: 1.75;
   margin: 0;
+  flex: 1;
 }
 
-.doadoresSection {
+.detalhesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.detalheRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--borda-sec);
+  font-size: 13px;
+}
+
+.detalheRow:last-child { border-bottom: none; }
+
+.detalheIcone {
+  font-size: 14px;
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+}
+
+.detalheChave {
+  color: var(--texto-sec);
+  flex: 1;
+}
+
+.detalheValor {
+  font-weight: 600;
+  color: var(--texto);
+  text-align: right;
+}
+
+/* ── Galeria ── */
+.galeriaSection {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.galeriaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.galeriaItem {
+  display: block;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 1;
+  border: 1px solid var(--borda);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.galeriaItem:hover {
+  transform: scale(1.02);
+  box-shadow: var(--sombra-md);
+}
+
+.galeriaImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Doação ── */
+.doacaoSection {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--radius);
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
+.valoresPills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 9px 20px;
+  border: 1.5px solid var(--borda);
+  border-radius: 100px;
+  background: var(--branco);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texto-sec);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.pill:hover {
+  border-color: var(--texto-ter);
+  color: var(--texto);
+}
+
+.pillAtivo {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.inputOutro {
+  padding: 11px 16px;
+  border: 1.5px solid var(--borda);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  color: var(--texto);
+  background: var(--branco);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.inputOutro:focus { border-color: var(--verde); }
+
+.doacaoRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.valorDisplay {
+  flex: 1;
+  padding: 11px 16px;
+  border: 1.5px solid var(--borda);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--texto);
+  background: var(--fundo);
+}
+
+.btnConfirmar {
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 26px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+
+.btnConfirmar:hover:not(:disabled) { opacity: 0.88; }
+
+.btnConfirmar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.doacaoSucesso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--verde-claro);
+  color: var(--verde-escuro);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.erro {
+  color: #DC2626;
+  font-size: 13px;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 0;
+}
+
+/* ── Doadores ── */
+.doadoresSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.doadoresHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .doadoresTitulo {
   font-family: 'DM Serif Display', serif;
-  font-size: 20px;
+  font-size: 22px;
   color: var(--texto);
   margin: 0;
+}
+
+.doadoresCount {
+  background: var(--borda-sec);
+  color: var(--texto-sec);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
 }
 
 .semDoadores {
   font-size: 14px;
   color: var(--texto-sec);
   font-style: italic;
+  padding: 8px 0;
 }
 
 .doadoresList {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 6px;
 }
 
 .doadorItem {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 14px;
+  padding: 14px 18px;
   background: var(--branco);
   border: 1px solid var(--borda);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
+  transition: box-shadow 0.15s;
+}
+
+.doadorItem:hover {
+  box-shadow: var(--sombra);
 }
 
 .doadorAvatar {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: #fff;
   flex-shrink: 0;
@@ -215,7 +550,24 @@
 }
 
 .doadorValor {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--verde);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .topBar { flex-wrap: wrap; }
+
+  .titulo { font-size: 22px; }
+
+  .metricasGrid { grid-template-columns: repeat(2, 1fr); }
+
+  .duasColunas { grid-template-columns: 1fr; }
+
+  .hero { flex-direction: column; gap: 12px; }
+
+  .doacaoRow { flex-direction: column; align-items: stretch; }
+
+  .btnConfirmar { width: 100%; text-align: center; }
 }

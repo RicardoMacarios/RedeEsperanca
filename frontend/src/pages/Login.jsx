@@ -45,6 +45,7 @@ export default function Login() {
           <span className={s.badge}>🐾 Animais</span>
           <span className={s.badge}>🌿 Meio Ambiente</span>
           <span className={s.badge}>❤️ Saúde & Idosos</span>
+          <span className={s.badge}>📚 Educação</span>
         </div>
         <div className={s.circulo1} />
         <div className={s.circulo2} />

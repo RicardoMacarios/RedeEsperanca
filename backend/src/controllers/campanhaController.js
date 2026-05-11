@@ -7,6 +7,24 @@ async function criarCampanha(req, res) {
     return res.status(400).json({ erro: 'Causa, título e meta são obrigatórios' });
   }
 
+  // Upload das fotos para o Supabase Storage
+  const urlsFotos = [];
+  if (req.files && req.files.length > 0) {
+    for (const file of req.files) {
+      const nomeArquivo = `${Date.now()}-${Math.random().toString(36).slice(2)}.${file.mimetype.split('/')[1]}`;
+      const { error: erroUpload } = await supabase.storage
+        .from('campanhas-fotos')
+        .upload(nomeArquivo, file.buffer, { contentType: file.mimetype });
+
+      if (!erroUpload) {
+        const { data: urlData } = supabase.storage
+          .from('campanhas-fotos')
+          .getPublicUrl(nomeArquivo);
+        urlsFotos.push(urlData.publicUrl);
+      }
+    }
+  }
+
   const { data: campanha, error } = await supabase
     .from('campanhas')
     .insert({
@@ -19,8 +37,9 @@ async function criarCampanha(req, res) {
       ong,
       cidade,
       estado,
-      urgente: urgente ?? false,
+      urgente: urgente === 'true' || urgente === true,
       status: 'pendente',
+      fotos: urlsFotos,
     })
     .select()
     .single();

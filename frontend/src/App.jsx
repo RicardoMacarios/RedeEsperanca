@@ -7,6 +7,8 @@ import CadastroVoluntario from './pages/CadastroVoluntario';
 import CadastroOng from './pages/CadastroOng';
 import Dashboard from './pages/Dashboard';
 import CriarCampanha from './pages/CriarCampanha';
+import Admin from './pages/Admin';
+import Ongs from './pages/Ongs';
 
 export default function App() {
   return (
@@ -38,6 +40,22 @@ export default function App() {
             element={
               <RotaProtegida>
                 <CriarCampanha />
+              </RotaProtegida>
+            }
+          />
+          <Route
+            path="/ongs"
+            element={
+              <RotaProtegida>
+                <Ongs />
+              </RotaProtegida>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <RotaProtegida>
+                <Admin />
               </RotaProtegida>
             }
           />

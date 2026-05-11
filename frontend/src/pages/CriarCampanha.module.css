@@ -233,3 +233,91 @@
   line-height: 1.6;
   max-width: 360px;
 }
+
+/* Upload de fotos */
+.uploadArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border: 2px dashed var(--borda);
+  border-radius: var(--radius);
+  padding: 28px 20px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: center;
+}
+
+.uploadArea:hover {
+  border-color: var(--verde);
+  background: var(--verde-claro);
+}
+
+.uploadIcone { font-size: 28px; }
+
+.uploadTexto {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texto-sec);
+}
+
+.uploadDica {
+  font-size: 12px;
+  color: var(--texto-ter);
+}
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.previewItem {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.previewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.previewRemover {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 1rem;
+  }
+
+  .duplo {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo {
+    font-size: 22px;
+  }
+
+  .sucesso {
+    padding: 32px 20px;
+  }
+}

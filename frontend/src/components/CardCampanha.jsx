@@ -57,7 +57,7 @@ export default function CardCampanha({ campanha, onClick, index = 0 }) {
         )}
         <div className={s.stat}>
           <span className={s.statLabel}>Doadores</span>
-          <span className={s.statValor}>{campanha.doadores.length}</span>
+          <span className={s.statValor}>{(campanha.doacoes ?? campanha.doadores ?? []).length}</span>
         </div>
       </div>
     </div>

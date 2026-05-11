@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import s from './CriarCampanha.module.css';
 
@@ -29,7 +30,11 @@ const inicial = {
 
 export default function CriarCampanha() {
   const navigate = useNavigate();
+  const { usuario } = useAuth();
+  const dashboardPath = usuario?.tipo === 'ong' ? '/dashboard/ong' : '/dashboard';
   const [form, setForm] = useState(inicial);
+  const [fotos, setFotos] = useState([]);
+  const [previews, setPreviews] = useState([]);
   const [erro, setErro] = useState('');
   const [enviando, setEnviando] = useState(false);
   const [sucesso, setSucesso] = useState(false);
@@ -45,6 +50,17 @@ export default function CriarCampanha() {
     setErro('');
   }
 
+  function handleFotos(e) {
+    const arquivos = Array.from(e.target.files).slice(0, 5);
+    setFotos(arquivos);
+    setPreviews(arquivos.map((f) => URL.createObjectURL(f)));
+  }
+
+  function removerFoto(i) {
+    setFotos((prev) => prev.filter((_, idx) => idx !== i));
+    setPreviews((prev) => prev.filter((_, idx) => idx !== i));
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (!form.causa) { setErro('Selecione uma causa.'); return; }
@@ -58,16 +74,20 @@ export default function CriarCampanha() {
 
     setEnviando(true);
     try {
-      await api.post('/campanhas', {
-        causa: form.causa,
-        titulo: form.titulo.trim(),
-        descricao: form.descricao.trim(),
-        icone: causaInfo.icone,
-        meta: Number(form.meta),
-        ong: form.ong.trim(),
-        cidade: form.cidade.trim(),
-        estado: form.estado,
-        urgente: form.urgente,
+      const formData = new FormData();
+      formData.append('causa', form.causa);
+      formData.append('titulo', form.titulo.trim());
+      formData.append('descricao', form.descricao.trim());
+      formData.append('icone', causaInfo.icone);
+      formData.append('meta', Number(form.meta));
+      formData.append('ong', form.ong.trim());
+      formData.append('cidade', form.cidade.trim());
+      formData.append('estado', form.estado);
+      formData.append('urgente', form.urgente);
+      fotos.forEach((f) => formData.append('fotos', f));
+
+      await api.post('/campanhas', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       setSucesso(true);
     } catch (err) {
@@ -87,7 +107,7 @@ export default function CriarCampanha() {
             Nossa equipe irá analisar sua campanha e você receberá uma resposta em breve.
             Após aprovação, ela aparecerá no dashboard para todos os voluntários.
           </p>
-          <button className={s.btnPrimario} onClick={() => navigate('/dashboard')}>
+          <button className={s.btnPrimario} onClick={() => navigate(dashboardPath)}>
             Voltar ao dashboard
           </button>
         </div>
@@ -98,7 +118,7 @@ export default function CriarCampanha() {
   return (
     <div className={s.page}>
       <div className={s.container}>
-        <button className={s.voltar} onClick={() => navigate('/dashboard')}>
+        <button className={s.voltar} onClick={() => navigate(dashboardPath)}>
           ← Voltar
         </button>
 
@@ -230,6 +250,34 @@ export default function CriarCampanha() {
                 ))}
               </select>
             </div>
+          </div>
+
+          <div className={s.grupo}>
+            <label className={s.label}>
+              Fotos de comprovação <span style={{ color: 'var(--texto-ter)', fontWeight: 400 }}>(opcional, máx. 5)</span>
+            </label>
+            <label className={s.uploadArea}>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                style={{ display: 'none' }}
+                onChange={handleFotos}
+              />
+              <span className={s.uploadIcone}>📷</span>
+              <span className={s.uploadTexto}>Clique para selecionar imagens</span>
+              <span className={s.uploadDica}>JPG, PNG ou WEBP · até 5 MB cada</span>
+            </label>
+            {previews.length > 0 && (
+              <div className={s.previewGrid}>
+                {previews.map((url, i) => (
+                  <div key={i} className={s.previewItem}>
+                    <img src={url} alt={`foto ${i + 1}`} className={s.previewImg} />
+                    <button type="button" className={s.previewRemover} onClick={() => removerFoto(i)}>✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <label className={s.checkLabel}>

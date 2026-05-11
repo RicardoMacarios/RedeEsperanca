@@ -98,8 +98,144 @@
   color: var(--texto);
 }
 
+.erro {
+  color: #DC2626;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.carregando {
+  color: var(--texto-sec);
+  font-size: 14px;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.vazio {
+  color: var(--texto-sec);
+  font-size: 14px;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.filtroBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.buscaWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--branco);
+  border: 1.5px solid var(--borda);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  flex: 1;
+  min-width: 180px;
+  transition: border-color 0.15s;
+}
+
+.buscaWrap:focus-within {
+  border-color: var(--verde);
+}
+
+.buscaIcone {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.buscaInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--texto);
+  width: 100%;
+}
+
+.buscaInput::placeholder {
+  color: var(--texto-ter);
+}
+
+.filtros {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filtroPill {
+  background: var(--branco);
+  border: 1.5px solid var(--borda);
+  border-radius: 100px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--texto-sec);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.filtroPill:hover {
+  border-color: var(--verde);
+  color: var(--verde);
+}
+
+.filtroPillAtivo {
+  background: var(--verde);
+  border-color: var(--verde);
+  color: #fff;
+}
+
+.filtroPillAtivo:hover {
+  color: #fff;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
+    padding: 1rem;
+    padding-top: 68px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .headerAcoes {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .metricasGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .titulo {
+    font-size: 22px;
+  }
+
+  .filtroBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filtros {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
 }
